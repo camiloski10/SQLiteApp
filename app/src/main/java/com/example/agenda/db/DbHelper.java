@@ -9,7 +9,7 @@ public class  DbHelper extends SQLiteOpenHelper {
     }
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NOMBRE = "agenda.db";
-    private static final String TABLE_CONTACTO = "t_contactos";
+    public static final String TABLE_CONTACTO = "t_contactos";
 
     public void onCreate(SQLiteDatabase SQLiteDatabase){
         SQLiteDatabase.execSQL("CREATE TABLE " + TABLE_CONTACTO + "(" +
