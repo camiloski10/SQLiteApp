@@ -2,6 +2,8 @@ package com.example.agenda;
 import static com.example.agenda.R.id.menuNuevo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,18 +15,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.agenda.adaptadores.ListaContactosAdapter;
+import com.example.agenda.db.DbContactos;
 import com.example.agenda.db.DbHelper;
+import com.example.agenda.entidades.Contactos;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnCrear;
+    RecyclerView listaContactos;
+    ArrayList<Contactos> listaArrayContactos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate
-
-
-                (savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listaContactos = findViewById(R.id.listaContactos);
+        listaContactos.setLayoutManager(new LinearLayoutManager(this));
+        DbContactos dbContactos = new DbContactos(MainActivity.this);
+
+        listaArrayContactos = new ArrayList<>();
+
+        ListaContactosAdapter adapter = new ListaContactosAdapter(dbContactos.mostrarContactos());
+        listaContactos.setAdapter(adapter);
 
     }
     public boolean onCreateOptionsMenu(Menu menu){
@@ -45,4 +60,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NuevoActivity.class);
         startActivity(intent);
     }
+
 }
